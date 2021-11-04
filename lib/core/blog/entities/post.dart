@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'post.g.dart';
+
+@JsonSerializable()
 class Post {
   final int userId;
   final int id;
@@ -11,12 +16,8 @@ class Post {
     this.body,
   });
 
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-      body: json['body'],
-    );
-  }
+  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
+
+  /// Connect the generated [_$PersonToJson] function to the `toJson` method.
+  Map<String, dynamic> toJson() => _$PostToJson(this);
 }
