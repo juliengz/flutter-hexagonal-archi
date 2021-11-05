@@ -30,6 +30,7 @@ class APICallLoggingInterceptor extends Interceptor {
   Future onResponse(response, handler) async {
     logger.i({
       "statusCode": response.statusCode,
+      "data": response.data,
     });
 
     return handler.next(response);

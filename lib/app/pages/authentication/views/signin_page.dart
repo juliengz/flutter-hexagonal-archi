@@ -37,12 +37,7 @@ class SigninPage extends GetView<SigninController> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () {
-                    _formKey.currentState!.save();
-                    if (_formKey.currentState!.validate()) {
-                      print(_formKey.currentState!.value);
-                    } else {
-                      print("validation failed");
-                    }
+                    controller.signin(_formKey);
                   },
                 ),
               ],
