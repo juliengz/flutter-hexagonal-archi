@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_api_test/core/user/interfaces/user_repository_interface.dart';
 import 'package:flutter_api_test/providers/http_client/http_client.dart';
 

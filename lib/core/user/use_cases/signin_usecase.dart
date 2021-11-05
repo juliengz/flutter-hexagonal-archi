@@ -1,5 +1,3 @@
-import 'package:flutter_api_test/core/blog/entities/post.dart';
-import 'package:flutter_api_test/core/user/entities/user.dart';
 import 'package:flutter_api_test/core/user/interfaces/user_repository_interface.dart';
 
 class SigninUseCase {
