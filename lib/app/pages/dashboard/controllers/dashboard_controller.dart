@@ -11,7 +11,10 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() async {
-    posts.value = await RetrievePostsUsecase(postRepository).exec();
+    var response = await RetrievePostsUsecase(postRepository).exec();
+
+    posts.value = response;
+
     super.onInit();
   }
 }

@@ -1,14 +1,11 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:logger/logger.dart';
+import 'package:flutter_api_test/main.dart';
 
 const noData = "n/a";
 
 class APICallLoggingInterceptor extends Interceptor {
-  final Logger logger = Logger(printer: PrettyPrinter());
-  final Logger loggerNoStack = Logger(printer: PrettyPrinter(methodCount: 0));
-
   APICallLoggingInterceptor();
 
   @override
@@ -16,12 +13,10 @@ class APICallLoggingInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    Map log = {
-      _formatLabel(options.method): options.uri,
-      _formatLabel("Body"): options.data ?? noData,
-    };
-
-    loggerNoStack.i(_formatContent(log));
+    logger.i({
+      options.method: options.uri,
+      "Body": options.data ?? noData,
+    });
 
     return handler.next(options);
   }
@@ -33,16 +28,10 @@ class APICallLoggingInterceptor extends Interceptor {
 
   @override
   Future onResponse(response, handler) async {
+    logger.i({
+      "statusCode": response.statusCode,
+    });
+
     return handler.next(response);
-  }
-
-  String _formatLabel(String label) {
-    return label.padRight(20, ' ');
-  }
-
-  StringBuffer _formatContent(Map log) {
-    var buffer = StringBuffer();
-    log.forEach((k, v) => buffer.writeln('$k: $v'));
-    return buffer;
   }
 }

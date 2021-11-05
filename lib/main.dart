@@ -4,14 +4,10 @@ import 'package:flutter_api_test/app/routes/app_routes.dart';
 import 'package:flutter_api_test/app/themes/app_theme.dart';
 import 'package:flutter_api_test/dependencies_injection.dart';
 import 'package:get/get.dart';
-import 'dart:developer' as developer;
+import 'package:logger/logger.dart';
 
-void logme(String text) {
-  developer.log(
-    text,
-    name: 'APPLICATION',
-  );
-}
+Logger logger = Logger(printer: PrettyPrinter(methodCount: 0));
+Logger stackTrace = Logger(printer: PrettyPrinter());
 
 void main() {
   injectDependencies();
