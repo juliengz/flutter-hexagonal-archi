@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_api_test/core/blog/entities/post.dart';
 import 'package:flutter_api_test/core/blog/interfaces/post_repository_interface.dart';
 import 'package:flutter_api_test/providers/http_client/http_client.dart';

@@ -12,8 +12,4 @@ ThemeData lightTheme = ThemeData(
   ),
   highlightColor: Colors.transparent,
   splashColor: Colors.transparent,
-  appBarTheme: const AppBarTheme(
-    color: Colors.white,
-    elevation: 0,
-  ),
 );

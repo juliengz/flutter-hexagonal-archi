@@ -13,6 +13,9 @@ class DashboardPage extends GetView<DashboardController> {
     return GetBuilder<DashboardController>(builder: (controller) {
       return SafeArea(
         child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Dashboard'),
+          ),
           body: Obx(
             () => ListView.builder(
               itemCount: controller.posts.length,

@@ -20,7 +20,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: AppRoutes.dashboardRouteName,
+      initialRoute: AppRoutes.signinRouteName,
       getPages: AppPages.list,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,

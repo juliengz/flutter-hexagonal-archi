@@ -7,8 +7,5 @@ class DashboardBinding extends Bindings {
     Get.lazyPut<DashboardController>(() => DashboardController(
           postRepository: Get.find(),
         ));
-    // Get.lazyPut<HomeController>(() => HomeController());
-    // Get.lazyPut<AccountController>(() => AccountController());
-    // Get.lazyPut<PostsController>(() => PostsController());
   }
 }
