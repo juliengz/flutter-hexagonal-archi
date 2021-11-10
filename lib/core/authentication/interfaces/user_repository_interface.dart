@@ -1,3 +1,3 @@
 abstract class UserRepositoryInterface {
-  Future<Map<String, String>> signin(String login, String password);
+  Future<Map<String, String>?> signin(String login, String password);
 }

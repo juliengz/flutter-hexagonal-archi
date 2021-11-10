@@ -25,4 +25,16 @@ class ApiRequest {
       if (onError != null) onError(error);
     });
   }
+
+  void post({
+    Function()? beforeSend,
+    Function(dynamic data)? onSuccess,
+    Function(dynamic error)? onError,
+  }) {
+    _dio().post(url, data: data).then((res) {
+      if (onSuccess != null) onSuccess(res.data);
+    }).catchError((error) {
+      if (onError != null) onError(error);
+    });
+  }
 }
