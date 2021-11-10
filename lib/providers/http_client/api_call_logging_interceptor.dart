@@ -23,6 +23,11 @@ class APICallLoggingInterceptor extends Interceptor {
 
   @override
   Future onError(DioError err, handler) async {
+    logger.e({
+      "url": err.response?.realUri,
+      "statusCode": err.response?.statusCode,
+    });
+
     return handler.next(err);
   }
 

@@ -2,8 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter_api_test/core/authentication/interfaces/user_repository_interface.dart';
 import 'package:flutter_api_test/providers/http_client/http_client.dart';
 
+enum exeptionCauses { badCredential }
+
 class BadCredentialException implements Exception {
-  String cause;
+  exeptionCauses cause;
   BadCredentialException(this.cause);
 }
 
@@ -23,7 +25,7 @@ class UserRepository implements UserRepositoryInterface {
       };
     } on DioError catch (e) {
       if (e.response?.statusCode == 401) {
-        throw BadCredentialException('test');
+        throw BadCredentialException(exeptionCauses.badCredential);
       }
     }
   }
