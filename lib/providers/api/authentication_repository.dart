@@ -31,7 +31,6 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
       },
     );
 
-    print(response);
     return response;
   }
 

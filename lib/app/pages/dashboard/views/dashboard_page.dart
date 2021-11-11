@@ -18,9 +18,9 @@ class DashboardPage extends GetView<DashboardController> {
           ),
           body: Obx(
             () => ListView.builder(
-              itemCount: controller.posts.length,
+              itemCount: controller.users.length,
               itemBuilder: (context, index) => Text(
-                controller.posts[index].title,
+                controller.users[index].name,
               ),
             ),
           ),

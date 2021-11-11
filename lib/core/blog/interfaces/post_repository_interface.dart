@@ -1,5 +1,5 @@
-import 'package:flutter_api_test/core/blog/entities/post.dart';
+import 'package:flutter_api_test/core/authentication/entities/user.dart';
 
 abstract class PostRepositoryInterface {
-  Future<List<Post>> allPosts();
+  Future<List<User>> allPosts();
 }

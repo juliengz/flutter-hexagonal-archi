@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_api_test/app/routes/app_routes.dart';
 import 'package:flutter_api_test/core/authentication/responses/authentication_response.dart';
 import 'package:flutter_api_test/core/authentication/use_cases/signin_usecase.dart';
 import 'package:flutter_api_test/main.dart';
@@ -24,9 +25,15 @@ class SigninController extends GetxController {
           await SigninUseCase(authenticationManager).exec(email, password);
 
       response.onSuccess((data) {
-        logger.i(data);
-      }).onError((data) {
-        stackTrace.e(data);
+        logger.i({
+          "SIGNIN SUCCESS": {data}
+        });
+        Get.offNamed(AppRoutes.dashboardRouteName);
+      }).onError((error) {
+        stackTrace.e(error);
+        logger.i({
+          "SIGNIN FAILURE": {error}
+        });
       });
     }
   }

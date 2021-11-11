@@ -1,4 +1,4 @@
-import 'package:flutter_api_test/core/blog/entities/post.dart';
+import 'package:flutter_api_test/core/authentication/entities/user.dart';
 import 'package:flutter_api_test/core/blog/interfaces/post_repository_interface.dart';
 
 class RetrievePostsUsecase {
@@ -6,7 +6,7 @@ class RetrievePostsUsecase {
 
   RetrievePostsUsecase(this.postRepository);
 
-  Future<List<Post>> exec() async {
+  Future<List<User>> exec() async {
     return await postRepository.allPosts();
   }
 }
