@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_api_test/core/authentication/responses/requests_status.dart';
+import 'package:flutter_api_test/core/authentication/responses/authentication_response.dart';
 import 'package:flutter_api_test/core/authentication/use_cases/signin_usecase.dart';
 import 'package:flutter_api_test/main.dart';
 import 'package:flutter_api_test/providers/authentication/jwt_authentication_manager.dart';
@@ -20,13 +20,13 @@ class SigninController extends GetxController {
       String email = formKey.currentState!.fields['login']!.value;
       String password = formKey.currentState!.fields['password']!.value;
 
-      RequestStatus response =
+      AuthenticationResponse response =
           await SigninUseCase(authenticationManager).exec(email, password);
 
       response.onSuccess((data) {
         logger.i(data);
       }).onError((data) {
-        logger.e(data);
+        stackTrace.e(data);
       });
     }
   }

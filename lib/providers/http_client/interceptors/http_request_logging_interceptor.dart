@@ -5,9 +5,7 @@ import 'package:flutter_api_test/main.dart';
 
 const noData = "n/a";
 
-class APICallLoggingInterceptor extends Interceptor {
-  APICallLoggingInterceptor();
-
+class HTTPRequestLoggingInterceptor extends Interceptor {
   @override
   Future onRequest(
     RequestOptions options,
@@ -15,6 +13,7 @@ class APICallLoggingInterceptor extends Interceptor {
   ) async {
     logger.i({
       options.method: options.uri,
+      "headers": options.headers,
       "Body": options.data ?? noData,
     });
 

@@ -1,32 +1,41 @@
 import 'package:flutter_api_test/core/authentication/entities/user.dart';
-import 'package:flutter_api_test/core/authentication/interfaces/authentication_manager.dart';
-import 'package:flutter_api_test/core/authentication/interfaces/user_repository_interface.dart';
-import 'package:flutter_api_test/core/authentication/responses/requests_status.dart';
-import 'package:flutter_api_test/providers/api/user_repository.dart';
+import 'package:flutter_api_test/core/authentication/interfaces/authentication_manager_interface.dart';
+import 'package:flutter_api_test/core/authentication/interfaces/authentication_repository_interface.dart';
+import 'package:flutter_api_test/core/authentication/responses/authentication_response.dart';
+import 'package:flutter_api_test/main.dart';
+import 'package:flutter_api_test/providers/api/authentication_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class JwtAuthenticationManager implements AuthenticationManagerInterface {
-  final UserRepositoryInterface userRepository;
+  final AuthenticationRepositoryInterface authenticationRepository;
   final storage = const FlutterSecureStorage();
 
-  JwtAuthenticationManager({required this.userRepository});
+  JwtAuthenticationManager({required this.authenticationRepository});
 
   @override
-  Future<RequestStatus> signin(String login, String password) async {
+  Future<AuthenticationResponse> signin(String login, String password) async {
     try {
-      Map<String, String>? tokens =
-          await userRepository.signin(login, password);
+      Map<String, dynamic>? tokens =
+          await authenticationRepository.signin(login, password);
+
+      logger.d(tokens);
+
       await storage.write(key: 'accessToken', value: tokens?['accessToken']);
       await storage.write(key: 'refreshToken', value: tokens?['refreshToken']);
 
-      return SuccessRequest(data: 'done!');
+      User? user = await authenticationRepository.getUser();
+
+      return AuthenticationResponseSuccess(data: user);
     } on BadCredentialException catch (e) {
-      return FailedRequest(error: e);
+      return AuthenticationResponseFailure(error: e);
     }
   }
 
   @override
-  void signout() {}
+  void signout() async {
+    await storage.delete(key: 'accessToken');
+    await storage.delete(key: 'refreshToken');
+  }
 
   @override
   bool isAuthenticated() {
