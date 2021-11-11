@@ -5,7 +5,7 @@ class DashboardBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<DashboardController>(() => DashboardController(
-          postRepository: Get.find(),
+          userRepository: Get.find(),
         ));
   }
 }

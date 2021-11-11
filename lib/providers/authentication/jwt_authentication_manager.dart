@@ -2,7 +2,6 @@ import 'package:flutter_api_test/core/authentication/entities/user.dart';
 import 'package:flutter_api_test/core/authentication/interfaces/authentication_manager_interface.dart';
 import 'package:flutter_api_test/core/authentication/interfaces/authentication_repository_interface.dart';
 import 'package:flutter_api_test/core/authentication/responses/authentication_response.dart';
-import 'package:flutter_api_test/main.dart';
 import 'package:flutter_api_test/providers/api/authentication_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -17,8 +16,6 @@ class JwtAuthenticationManager implements AuthenticationManagerInterface {
     try {
       Map<String, dynamic>? tokens =
           await authenticationRepository.signin(login, password);
-
-      logger.d(tokens);
 
       await storage.write(key: 'accessToken', value: tokens?['accessToken']);
       await storage.write(key: 'refreshToken', value: tokens?['refreshToken']);

@@ -1,18 +1,17 @@
 import 'package:flutter_api_test/core/authentication/entities/user.dart';
-import 'package:flutter_api_test/core/blog/entities/post.dart';
-import 'package:flutter_api_test/core/blog/use_cases/retrieve_posts_usecase.dart';
-import 'package:flutter_api_test/providers/api/post_repository.dart';
+import 'package:flutter_api_test/core/blog/use_cases/retrieve_users_usecase.dart';
+import 'package:flutter_api_test/providers/api/user_repository.dart';
 import 'package:get/get.dart';
 
 class DashboardController extends GetxController {
-  final PostRepository postRepository;
+  final UserRepository userRepository;
   final users = RxList<User>([]);
 
-  DashboardController({required this.postRepository});
+  DashboardController({required this.userRepository});
 
   @override
   void onInit() async {
-    var response = await RetrievePostsUsecase(postRepository).exec();
+    var response = await RetrieveUsersUsecase(userRepository).exec();
 
     users.value = response;
 

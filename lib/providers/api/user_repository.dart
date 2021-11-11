@@ -1,17 +1,11 @@
 import 'package:flutter_api_test/core/authentication/entities/user.dart';
-import 'package:flutter_api_test/core/blog/entities/post.dart';
-import 'package:flutter_api_test/core/blog/interfaces/post_repository_interface.dart';
+import 'package:flutter_api_test/core/blog/interfaces/user_repository_interface.dart';
 import 'package:flutter_api_test/providers/api/authentication_repository.dart';
-import 'package:flutter_api_test/providers/http_client/http_client.dart';
 import 'package:flutter_api_test/providers/http_client/http_request.dart';
 
-class PostRepository implements PostRepositoryInterface {
+class UserRepository implements UserRepositoryInterface {
   @override
-  Future<List<User>> allPosts() async {
-    // var dio = createHttpClient();
-    // var response = await dio.get('https://jsonplaceholder.typicode.com/posts');
-    // return (response.data as List).map((data) => Post.fromJson(data)).toList();
-
+  Future<List<User>> allUsers() async {
     var response = await HttpRequest(requestedUrl: 'users').get(
       onSuccess: (response) {
         return (response.data as List)
