@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_api_test/app/routes/app_routes.dart';
+import 'package:flutter_api_test/core/authentication/entities/user.dart';
 import 'package:flutter_api_test/core/authentication/responses/authentication_response.dart';
 import 'package:flutter_api_test/core/authentication/use_cases/signin_usecase.dart';
 import 'package:flutter_api_test/main.dart';
@@ -21,7 +22,7 @@ class SigninController extends GetxController {
       String email = formKey.currentState!.fields['login']!.value;
       String password = formKey.currentState!.fields['password']!.value;
 
-      AuthenticationResponse response =
+      AuthenticationResponse<dynamic> response =
           await SigninUseCase(authenticationManager).exec(email, password);
 
       response.onSuccess((data) {

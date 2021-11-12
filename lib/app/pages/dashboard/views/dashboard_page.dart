@@ -10,22 +10,20 @@ class DashboardPage extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DashboardController>(builder: (controller) {
-      return SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Dashboard'),
-          ),
-          body: Obx(
-            () => ListView.builder(
-              itemCount: controller.users.length,
-              itemBuilder: (context, index) => Text(
-                controller.users[index].name,
-              ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Dashboard'),
+        ),
+        body: Obx(
+          () => ListView.builder(
+            itemCount: controller.users.length,
+            itemBuilder: (context, index) => Text(
+              controller.users[index].name,
             ),
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 }

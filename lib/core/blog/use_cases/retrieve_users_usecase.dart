@@ -2,7 +2,7 @@ import 'package:flutter_api_test/core/authentication/entities/user.dart';
 import 'package:flutter_api_test/core/blog/interfaces/user_repository_interface.dart';
 
 class RetrieveUsersUsecase {
-  final UsersRepositoryInterface userRepository;
+  final UserRepositoryInterface userRepository;
 
   RetrieveUsersUsecase(this.userRepository);
 

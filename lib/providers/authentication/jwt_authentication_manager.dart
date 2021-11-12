@@ -12,7 +12,8 @@ class JwtAuthenticationManager implements AuthenticationManagerInterface {
   JwtAuthenticationManager({required this.authenticationRepository});
 
   @override
-  Future<AuthenticationResponse> signin(String login, String password) async {
+  Future<AuthenticationResponse<dynamic>> signin(
+      String login, String password) async {
     try {
       Map<String, dynamic>? tokens =
           await authenticationRepository.signin(login, password);

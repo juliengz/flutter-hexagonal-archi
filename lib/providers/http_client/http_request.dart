@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 
 class HttpRequest {
   final String _baseUrl = "http://10.0.2.2:8000/";
+  // final String _baseUrl = "http://192.168.1.46:8000/";
   final String requestedUrl;
   final Dio _client = createHttpClient();
   final Map? data;
