@@ -12,7 +12,7 @@ class BadCredentialException implements Exception {
 
 class AuthenticationRepository implements AuthenticationRepositoryInterface {
   @override
-  Future<Map<String, dynamic>?> signin(String login, String password) async {
+  Future<Map<String, dynamic>> signin(String login, String password) async {
     var response = await HttpRequest(
         requestedUrl: 'auth',
         data: {'login': login, 'password': password}).post(
@@ -35,7 +35,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   }
 
   @override
-  Future<User?> getUser() async {
+  Future<User> getUser() async {
     var response = await HttpRequest(requestedUrl: 'me').get(
       onSuccess: (response) {
         return User.fromJson(response.data);

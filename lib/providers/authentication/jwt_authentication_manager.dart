@@ -1,13 +1,17 @@
-import 'package:flutter_api_test/core/authentication/entities/user.dart';
 import 'package:flutter_api_test/core/authentication/interfaces/authentication_manager_interface.dart';
 import 'package:flutter_api_test/core/authentication/interfaces/authentication_repository_interface.dart';
 import 'package:flutter_api_test/core/authentication/responses/authentication_response.dart';
 import 'package:flutter_api_test/providers/api/authentication_repository.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_api_test/providers/state/user_state.dart';
+import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class JwtAuthenticationManager implements AuthenticationManagerInterface {
   final AuthenticationRepositoryInterface authenticationRepository;
-  final storage = const FlutterSecureStorage();
+  final box = GetStorage();
+
+  final UserState userState = Get.find();
 
   JwtAuthenticationManager({required this.authenticationRepository});
 
@@ -18,12 +22,12 @@ class JwtAuthenticationManager implements AuthenticationManagerInterface {
       Map<String, dynamic>? tokens =
           await authenticationRepository.signin(login, password);
 
-      await storage.write(key: 'accessToken', value: tokens?['accessToken']);
-      await storage.write(key: 'refreshToken', value: tokens?['refreshToken']);
+      await box.write('accessToken', tokens['accessToken']);
+      await box.write('refreshToken', tokens['refreshToken']);
 
-      User? user = await authenticationRepository.getUser();
+      userState.user = await authenticationRepository.getUser();
 
-      return AuthenticationResponseSuccess(data: user);
+      return AuthenticationResponseSuccess(data: 'signin success');
     } on BadCredentialException catch (e) {
       return AuthenticationResponseFailure(error: e);
     }
@@ -31,12 +35,27 @@ class JwtAuthenticationManager implements AuthenticationManagerInterface {
 
   @override
   void signout() async {
-    await storage.delete(key: 'accessToken');
-    await storage.delete(key: 'refreshToken');
+    await box.remove('accessToken');
+    await box.remove('refreshToken');
   }
 
   @override
   bool isAuthenticated() {
-    return false;
+    return userState.user != null;
+  }
+
+  @override
+  handleAuthenticationState() async {
+    String? accessToken = box.read('accessToken');
+
+    if (accessToken != null) {
+      try {
+        userState.user = await authenticationRepository.getUser();
+      } catch (e) {
+        signout();
+      }
+
+      //TODO: handle token refresh
+    }
   }
 }

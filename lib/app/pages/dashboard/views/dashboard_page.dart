@@ -15,13 +15,23 @@ class DashboardPage extends GetView<DashboardController> {
         appBar: AppBar(
           title: const Text('Dashboard'),
         ),
-        body: Obx(
-          () => ListView.builder(
-            itemCount: controller.users.length,
-            itemBuilder: (context, index) => Text(
-              controller.users[index].name,
+        body: Column(
+          children: [
+            Obx(
+              () => Text(
+                'Welcome ' + (controller.user.value?.name ?? ""),
+                style: Theme.of(context).textTheme.headline5,
+              ),
             ),
-          ),
+            // Obx(
+            //   () => ListView.builder(
+            //     itemCount: controller.users.length,
+            //     itemBuilder: (context, index) => Text(
+            //       controller.users[index].name,
+            //     ),
+            //   ),
+            // ),
+          ],
         ),
       ),
     );

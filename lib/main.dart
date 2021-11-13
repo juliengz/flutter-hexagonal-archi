@@ -3,24 +3,39 @@ import 'package:flutter_api_test/app/routes/app_pages.dart';
 import 'package:flutter_api_test/app/routes/app_routes.dart';
 import 'package:flutter_api_test/app/themes/app_theme.dart';
 import 'package:flutter_api_test/dependencies_injection.dart';
+import 'package:flutter_api_test/providers/authentication/jwt_authentication_manager.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
 
 Logger logger = Logger(printer: PrettyPrinter(methodCount: 0));
 Logger stackTrace = Logger(printer: PrettyPrinter());
 
-void main() {
+Future<void> main() async {
   injectDependencies();
-  runApp(const App());
+  WidgetsFlutterBinding.ensureInitialized();
+  await initServices();
+  runApp(App());
+}
+
+Future<void> initServices() async {
+  await GetStorage.init();
+  final JwtAuthenticationManager authenticationManager = Get.find();
+
+  await authenticationManager.handleAuthenticationState();
 }
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  final JwtAuthenticationManager authenticationManager = Get.find();
+
+  App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: AppRoutes.signinRouteName,
+      initialRoute: authenticationManager.isAuthenticated()
+          ? AppRoutes.dashboardRouteName
+          : AppRoutes.signinRouteName,
       getPages: AppPages.list,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,

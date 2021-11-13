@@ -1,21 +1,21 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_api_test/main.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AccessTokenHandlerInterceptor extends Interceptor {
-  final storage = const FlutterSecureStorage();
+  final box = GetStorage();
 
   @override
   Future onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    String? accessToken = await storage.read(key: "accessToken");
+    String? accessToken = box.read("accessToken");
 
     if (accessToken != null) {
       options.headers['Authorization'] = 'Bearer $accessToken';
-      logger.i({"token": accessToken});
+      logger.i({"Token added": accessToken});
     }
 
     return handler.next(options);
