@@ -19,9 +19,9 @@ Future<void> main() async {
 }
 
 Future<void> initServices() async {
-  await GetStorage.init();
   final JwtAuthenticationManager authenticationManager = Get.find();
 
+  await GetStorage.init();
   await authenticationManager.handleAuthenticationState();
 }
 

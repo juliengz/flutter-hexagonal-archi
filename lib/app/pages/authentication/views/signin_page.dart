@@ -21,9 +21,10 @@ class SigninPage extends GetView<SigninController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'ZZ',
-                  style: Theme.of(context).textTheme.headline1,
+                const Icon(
+                  Icons.supervised_user_circle,
+                  size: 100.0,
+                  color: Colors.pink,
                 ),
                 SizedBox(height: spacingFactor(4)),
                 FormBuilderTextField(
@@ -37,11 +38,22 @@ class SigninPage extends GetView<SigninController> {
                 FormBuilderTextField(
                   name: 'password',
                   keyboardType: TextInputType.text,
+                  obscureText: true,
                   decoration: const InputDecoration(
                     hintText: 'password',
                   ),
                 ),
                 SizedBox(height: spacingFactor(4)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Create your account'),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text('Sign Up'),
+                    ),
+                  ],
+                ),
                 MaterialButton(
                   color: Theme.of(context).colorScheme.secondary,
                   minWidth: double.infinity,
