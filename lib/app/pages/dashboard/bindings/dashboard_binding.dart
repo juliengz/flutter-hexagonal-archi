@@ -7,6 +7,7 @@ class DashboardBinding extends Bindings {
     Get.lazyPut<DashboardController>(() => DashboardController(
           userRepository: Get.find(),
           userState: Get.find(),
+          authenticationManager: Get.find(),
         ));
   }
 }

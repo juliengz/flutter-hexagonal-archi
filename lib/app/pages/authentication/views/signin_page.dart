@@ -46,7 +46,7 @@ class SigninPage extends GetView<SigninController> {
                   color: Theme.of(context).colorScheme.secondary,
                   minWidth: double.infinity,
                   child: const Text(
-                    "SIGNIN",
+                    "Sign In",
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () {

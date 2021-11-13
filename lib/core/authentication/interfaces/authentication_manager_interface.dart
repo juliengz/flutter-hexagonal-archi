@@ -2,7 +2,7 @@ import 'package:flutter_api_test/core/authentication/responses/authentication_re
 
 abstract class AuthenticationManagerInterface {
   Future<AuthenticationResponse<dynamic>> signin(String login, String password);
-  void signout();
+  Future<void> signout();
   bool isAuthenticated();
-  handleAuthenticationState();
+  Future<void> handleAuthenticationState();
 }

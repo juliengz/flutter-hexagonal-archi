@@ -15,7 +15,6 @@ class AccessTokenHandlerInterceptor extends Interceptor {
 
     if (accessToken != null) {
       options.headers['Authorization'] = 'Bearer $accessToken';
-      logger.i({"Token added": accessToken});
     }
 
     return handler.next(options);

@@ -1,7 +1,7 @@
+import 'package:flutter_api_test/core/authentication/exceptions/bad_credential_exception.dart';
 import 'package:flutter_api_test/core/authentication/interfaces/authentication_manager_interface.dart';
 import 'package:flutter_api_test/core/authentication/interfaces/authentication_repository_interface.dart';
 import 'package:flutter_api_test/core/authentication/responses/authentication_response.dart';
-import 'package:flutter_api_test/providers/api/authentication_repository.dart';
 import 'package:flutter_api_test/providers/state/user_state.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
@@ -10,7 +10,6 @@ import 'package:get_storage/get_storage.dart';
 class JwtAuthenticationManager implements AuthenticationManagerInterface {
   final AuthenticationRepositoryInterface authenticationRepository;
   final box = GetStorage();
-
   final UserState userState = Get.find();
 
   JwtAuthenticationManager({required this.authenticationRepository});
@@ -34,7 +33,7 @@ class JwtAuthenticationManager implements AuthenticationManagerInterface {
   }
 
   @override
-  void signout() async {
+  Future<void> signout() async {
     await box.remove('accessToken');
     await box.remove('refreshToken');
   }
@@ -45,14 +44,14 @@ class JwtAuthenticationManager implements AuthenticationManagerInterface {
   }
 
   @override
-  handleAuthenticationState() async {
+  Future<void> handleAuthenticationState() async {
     String? accessToken = box.read('accessToken');
 
     if (accessToken != null) {
       try {
         userState.user = await authenticationRepository.getUser();
       } catch (e) {
-        signout();
+        await signout();
       }
 
       //TODO: handle token refresh

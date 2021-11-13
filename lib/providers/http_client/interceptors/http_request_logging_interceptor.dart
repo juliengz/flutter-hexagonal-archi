@@ -11,11 +11,11 @@ class HTTPRequestLoggingInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    logger.i({
-      options.method: options.uri,
-      "headers": options.headers,
-      "Body": options.data ?? noData,
-    });
+    // logger.i({
+    //   options.method: options.uri,
+    //   "headers": options.headers,
+    //   "Body": options.data ?? noData,
+    // });
 
     return handler.next(options);
   }
@@ -32,10 +32,10 @@ class HTTPRequestLoggingInterceptor extends Interceptor {
 
   @override
   Future onResponse(response, handler) async {
-    logger.i({
-      "statusCode": response.statusCode,
-      "data": response.data,
-    });
+    // logger.i({
+    //   "statusCode": response.statusCode,
+    //   "data": response.data,
+    // });
 
     return handler.next(response);
   }

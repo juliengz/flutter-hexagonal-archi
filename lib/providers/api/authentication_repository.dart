@@ -1,14 +1,8 @@
 import 'package:flutter_api_test/core/authentication/entities/user.dart';
+import 'package:flutter_api_test/core/authentication/exceptions/bad_credential_exception.dart';
 import 'package:flutter_api_test/core/authentication/interfaces/authentication_repository_interface.dart';
 import 'package:flutter_api_test/main.dart';
 import 'package:flutter_api_test/providers/http_client/http_request.dart';
-
-enum exeptionCauses { badCredential }
-
-class BadCredentialException implements Exception {
-  exeptionCauses cause;
-  BadCredentialException(this.cause);
-}
 
 class AuthenticationRepository implements AuthenticationRepositoryInterface {
   @override
@@ -26,7 +20,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
       onError: (error) {
         if (error.response?.statusCode == 401) {
           logger.d(error.response?.statusCode);
-          throw BadCredentialException(exeptionCauses.badCredential);
+          throw BadCredentialException();
         }
       },
     );
@@ -43,7 +37,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
       onError: (error) {
         if (error.response?.statusCode == 401) {
           logger.d(error.response?.statusCode);
-          throw BadCredentialException(exeptionCauses.badCredential);
+          throw BadCredentialException();
         }
       },
     );
