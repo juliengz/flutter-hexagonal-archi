@@ -7,19 +7,22 @@ import 'package:flutter_api_test/providers/authentication/jwt_authentication_man
 import 'package:flutter_api_test/providers/state/user_state.dart';
 import 'package:get/get.dart';
 
-class DashboardController extends GetxController {
+class HomeController extends GetxController {
   final UserRepository userRepository;
   final UserState userState;
   final JwtAuthenticationManager authenticationManager;
 
+  final RxInt _selectedTabIndex = RxInt(0);
   final users = RxList<User>([]);
   Rx<User?> user = Rx<User?>(null);
 
-  DashboardController({
+  HomeController({
     required this.userRepository,
     required this.userState,
     required this.authenticationManager,
   });
+
+  int get selectedTabIndex => _selectedTabIndex.value;
 
   @override
   void onInit() async {
@@ -34,5 +37,9 @@ class DashboardController extends GetxController {
   void signout() async {
     await SignoutUseCase(authenticationManager).exec();
     Get.offNamed(AppRoutes.signinRouteName);
+  }
+
+  void onItemTapped(int index) {
+    _selectedTabIndex.value = index;
   }
 }

@@ -1,4 +1,4 @@
 class AppRoutes {
-  static const String dashboardRouteName = '/';
+  static const String homeRouteName = '/';
   static const String signinRouteName = '/signin';
 }

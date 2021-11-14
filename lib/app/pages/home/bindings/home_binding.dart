@@ -1,10 +1,10 @@
-import 'package:flutter_api_test/app/pages/dashboard/controllers/dashboard_controller.dart';
+import 'package:flutter_api_test/app/pages/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 
-class DashboardBinding extends Bindings {
+class HomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<DashboardController>(() => DashboardController(
+    Get.lazyPut<HomeController>(() => HomeController(
           userRepository: Get.find(),
           userState: Get.find(),
           authenticationManager: Get.find(),

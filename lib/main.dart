@@ -34,7 +34,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialRoute: authenticationManager.isAuthenticated()
-          ? AppRoutes.dashboardRouteName
+          ? AppRoutes.homeRouteName
           : AppRoutes.signinRouteName,
       getPages: AppPages.list,
       debugShowCheckedModeBanner: false,

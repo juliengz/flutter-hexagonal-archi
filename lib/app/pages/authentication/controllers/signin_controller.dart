@@ -25,7 +25,7 @@ class SigninController extends GetxController {
           await SigninUseCase(authenticationManager).exec(email, password);
 
       response.onSuccess((data) {
-        Get.offNamed(AppRoutes.dashboardRouteName);
+        Get.offNamed(AppRoutes.homeRouteName);
       }).onError((error) {
         if (error is BadCredentialException) {
           Get.snackbar(
